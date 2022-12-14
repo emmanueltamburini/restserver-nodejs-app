@@ -1,4 +1,5 @@
-import express from 'express'
+import express from 'express';
+import cors from 'cors'
 
 export default class Server {
 
@@ -9,6 +10,12 @@ export default class Server {
         this.middleware();
 
         this.routes();
+    }
+
+    middleware() {
+        this.app.use(cors());
+
+        this.app.use(express.static('public'));
     }
 
     routes() {
@@ -41,10 +48,6 @@ export default class Server {
             msg: 'patch API'
           });
         });
-    }
-
-    middleware() {
-        this.app.use(express.static('public'));
     }
 
     listen() {
