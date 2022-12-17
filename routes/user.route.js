@@ -1,17 +1,22 @@
-import {Router} from 'express';
-import { userDelete, userGet, userPatch, userPost, userPut } from '../controllers/user.controller.js';
+import { Router } from "express";
+import {
+  userDelete,
+  userGet,
+  userPatch,
+  userPost,
+  userPut,
+} from "../controllers/user.controller.js";
 
 const router = Router();
 
-router.get('/', userGet);
+router.get("/", userGet);
 
-router.put('/', userPut);
+router.put("/:id", userPut);
 
-router.post('/', userPost);
+router.post("/", userPost);
 
-router.delete('/', userDelete);
+router.delete("/:id", userDelete);
 
-router.patch('/', userPatch);
-
+router.patch("/", userPatch);
 
 export default router;
