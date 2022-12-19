@@ -1,4 +1,5 @@
 import { request, response } from "express";
+import User from "../models/user.js";
 
 export const userGet = (req = request, res = response) => {
   const { query } = req;
@@ -15,15 +16,16 @@ export const userGet = (req = request, res = response) => {
   });
 };
 
-export const userPost = (req = request, res = response) => {
+export const userPost = async (req = request, res = response) => {
   const { body } = req;
 
-  const { name, age } = body;
+  const user = new User(body);
+
+  await user.save();
 
   res.status(201).json({
     msg: "post API - controller",
-    name,
-    age,
+    user
   });
 };
 
