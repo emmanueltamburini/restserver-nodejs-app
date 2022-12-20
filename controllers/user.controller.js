@@ -63,8 +63,13 @@ export const userPut = async (req = request, res = response) => {
   });
 };
 
-export const userDelete = (req = request, res = response) => {
+export const userDelete = async (req = request, res = response) => {
+  const { id } = req.params;
+
+  const user = await User.findByIdAndDelete(id);
+
   res.json({
+    user,
     msg: "delete API - controller",
   });
 };
