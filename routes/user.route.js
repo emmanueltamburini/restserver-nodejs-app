@@ -6,18 +6,22 @@ import {
   userPost,
   userPut,
 } from "../controllers/user.controller.js";
-import { check } from "express-validator";
+import { check, query } from "express-validator";
 import { validateFields } from "../middleware/validateFields.middleware.js";
-import { validEmail, validId, validRole, validRoleUpdate } from "../helpers/dbValidators.js";
+import { validEmail, validId, validRole } from "../helpers/dbValidators.js";
 
 const router = Router();
 
-router.get("/", userGet);
+router.get("/", [
+    query('page', 'Page must be numeric field').optional({ checkFalsy: true }).isNumeric(),
+    query('limit', 'Limit must be numeric field').optional({ checkFalsy: true }).isNumeric(),
+    validateFields
+], userGet);
 
 router.put("/:id", [
     check('id', 'Id is invalid').isMongoId(),
     check('id').custom(validId),
-    check('role').custom(validRoleUpdate),
+    check('role').optional({ checkFalsy: true }).custom(validRole),
     validateFields
 ], userPut);
 

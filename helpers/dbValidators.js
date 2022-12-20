@@ -8,13 +8,6 @@ export const validRole = async (role = '') => {
     }
 }
 
-export const validRoleUpdate = async (role = '') => {
-    if (role === '') {
-        return;
-    }
-    validRole(role);
-}
-
 export const validEmail = async (email = '') => {
     const existUser = await User.findOne({email});
     if (existUser) {
