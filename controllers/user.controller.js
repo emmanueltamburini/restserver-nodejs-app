@@ -24,14 +24,6 @@ export const userPost = async (req = request, res = response) => {
 
   const user = new User({ name, email, password, role });
 
-  const existEmail = await User.findOne({ email });
-
-  if (existEmail) {
-    return res.status(400).json({
-      msg: "Email has already taken",
-    });
-  }
-
   const salt = bcryptjs.genSaltSync(10);
 
   user.password = bcryptjs.hashSync(user.password, salt);

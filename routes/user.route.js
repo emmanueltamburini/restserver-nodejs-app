@@ -7,7 +7,8 @@ import {
   userPut,
 } from "../controllers/user.controller.js";
 import { check } from "express-validator";
-import { validateFields } from "../middlewares/validateFields.middleware.js";
+import { validateFields } from "../middleware/validateFields.middleware.js";
+import { validEmail, validRole } from "../helpers/dbValidators.js";
 
 const router = Router();
 
@@ -20,8 +21,9 @@ router.post("/", [
     check('password', 'Password is required').not().isEmpty(),
     check('password', 'Password must have more than 6 characters').isLength({min: 6}),
     check('email', 'Email is invalid').isEmail(),
+    check('email').custom(validEmail),
     check('role', 'Role is required').not().isEmpty(),
-    check('role', 'Role must be valid').isIn(['ADMIN_ROLE', 'USER_ROLE']),
+    check('role').custom(validRole),
     validateFields
 ], userPost);
 

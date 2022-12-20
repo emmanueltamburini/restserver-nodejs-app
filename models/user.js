@@ -20,7 +20,6 @@ const userSchema = Schema({
     role: {
         type: String,
         required: [true, 'Role is required'],
-        enum : ['ADMIN_ROLE','USER_ROLE'],
     },
     status: {
         type: Boolean,
@@ -31,6 +30,12 @@ const userSchema = Schema({
         default: false
     },
 });
+
+userSchema.methods.toJSON = function () {
+    const {__v, password, _id, ...user } = this.toObject();
+
+    return {...user, id: _id};
+}
 
 const User = model('User', userSchema);
 
