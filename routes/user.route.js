@@ -8,13 +8,18 @@ import {
 } from "../controllers/user.controller.js";
 import { check } from "express-validator";
 import { validateFields } from "../middleware/validateFields.middleware.js";
-import { validEmail, validRole } from "../helpers/dbValidators.js";
+import { validEmail, validId, validRole, validRoleUpdate } from "../helpers/dbValidators.js";
 
 const router = Router();
 
 router.get("/", userGet);
 
-router.put("/:id", userPut);
+router.put("/:id", [
+    check('id', 'Id is invalid').isMongoId(),
+    check('id').custom(validId),
+    check('role').custom(validRoleUpdate),
+    validateFields
+], userPut);
 
 router.post("/", [
     check('name', 'Name is required').not().isEmpty(),

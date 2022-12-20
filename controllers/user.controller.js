@@ -1,6 +1,6 @@
 import { request, response } from "express";
 import User from "../models/user.js";
-import bcryptjs from "bcryptjs";
+import { generatePassword } from "../helpers/utils.js";
 
 export const userGet = (req = request, res = response) => {
   const { query } = req;
@@ -24,9 +24,7 @@ export const userPost = async (req = request, res = response) => {
 
   const user = new User({ name, email, password, role });
 
-  const salt = bcryptjs.genSaltSync(10);
-
-  user.password = bcryptjs.hashSync(user.password, salt);
+  user.password = generatePassword(user.password);
 
   await user.save();
 
@@ -36,12 +34,26 @@ export const userPost = async (req = request, res = response) => {
   });
 };
 
-export const userPut = (req = request, res = response) => {
+export const userPut = async (req = request, res = response) => {
   const { id } = req.params;
 
+  const { body } = req;
+
+  let { name, email, password, role } = body;
+
+  if (password) {
+    password = generatePassword(password);
+  }
+
+  const user = await User.findByIdAndUpdate(id, {
+    name,
+    email,
+    password,
+    role
+  }, {new: true});
+
   res.json({
-    msg: "put API - controller",
-    id,
+    user
   });
 };
 
