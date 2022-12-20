@@ -1,6 +1,6 @@
 import { request, response } from "express";
 import User from "../models/user.js";
-import bcryptjs from 'bcryptjs'
+import bcryptjs from "bcryptjs";
 
 export const userGet = (req = request, res = response) => {
   const { query } = req;
@@ -20,9 +20,17 @@ export const userGet = (req = request, res = response) => {
 export const userPost = async (req = request, res = response) => {
   const { body } = req;
 
-  const {name, email, password, role} = body;
+  const { name, email, password, role } = body;
 
-  const user = new User({name, email, password, role});
+  const user = new User({ name, email, password, role });
+
+  const existEmail = await User.findOne({ email });
+
+  if (existEmail) {
+    return res.status(400).json({
+      msg: "Email has already taken",
+    });
+  }
 
   const salt = bcryptjs.genSaltSync(10);
 
@@ -32,7 +40,7 @@ export const userPost = async (req = request, res = response) => {
 
   res.status(201).json({
     msg: "post API - controller",
-    user
+    user,
   });
 };
 
