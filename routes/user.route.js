@@ -10,22 +10,22 @@ import { check, query } from "express-validator";
 import { validateFields } from "../middleware/validateFields.middleware.js";
 import { validEmail, validId, validRole } from "../helpers/dbValidators.js";
 
-const router = Router();
+const userRouter = Router();
 
-router.get("/", [
+userRouter.get("/", [
     query('page', 'Page must be numeric field').optional({ checkFalsy: true }).isNumeric(),
     query('limit', 'Limit must be numeric field').optional({ checkFalsy: true }).isNumeric(),
     validateFields
 ], userGet);
 
-router.put("/:id", [
+userRouter.put("/:id", [
     check('id', 'Id is invalid').isMongoId(),
     check('id').custom(validId),
     check('role').optional({ checkFalsy: true }).custom(validRole),
     validateFields
 ], userPut);
 
-router.post("/", [
+userRouter.post("/", [
     check('name', 'Name is required').not().isEmpty(),
     check('password', 'Password is required').not().isEmpty(),
     check('password', 'Password must have more than 6 characters').isLength({min: 6}),
@@ -36,12 +36,12 @@ router.post("/", [
     validateFields
 ], userPost);
 
-router.delete("/:id", [
+userRouter.delete("/:id", [
     check('id', 'Id is invalid').isMongoId(),
     check('id').custom(validId),
     validateFields
 ], userDelete);
 
-router.patch("/", userPatch);
+userRouter.patch("/", userPatch);
 
-export default router;
+export default userRouter;
