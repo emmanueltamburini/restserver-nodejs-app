@@ -29,3 +29,13 @@ export const generateJWT = (uid = '') => {
         }, callback);
     });
 }
+
+export const checkJWT = (token = '') => {
+    try {
+        return jwt.verify(token, process.env.SECRET_PRIVATE_KEY);
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+    
+}

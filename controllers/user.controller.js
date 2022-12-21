@@ -35,8 +35,7 @@ export const userPost = async (req = request, res = response) => {
   await user.save();
 
   res.status(201).json({
-    msg: "post API - controller",
-    user,
+    user
   });
 };
 
@@ -69,8 +68,7 @@ export const userDelete = async (req = request, res = response) => {
   const user = await User.findByIdAndUpdate(id, {status: false}, {new: true});
 
   res.json({
-    user,
-    msg: "delete API - controller",
+    user
   });
 };
 

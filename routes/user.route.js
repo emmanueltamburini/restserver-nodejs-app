@@ -9,6 +9,7 @@ import {
 import { check, query } from "express-validator";
 import { validateFields } from "../middleware/validateFields.middleware.js";
 import { validEmail, validId, validRole } from "../helpers/dbValidators.js";
+import { validateJWT } from "../middleware/validateJWT.middleware.js";
 
 const userRouter = Router();
 
@@ -37,6 +38,7 @@ userRouter.post("/", [
 ], userPost);
 
 userRouter.delete("/:id", [
+    validateJWT,
     check('id', 'Id is invalid').isMongoId(),
     check('id').custom(validId),
     validateFields
