@@ -10,37 +10,42 @@ import { check, query } from "express-validator";
 import { validateFields } from "../middleware/validateFields.middleware.js";
 import { validEmail, validId, validRole } from "../helpers/dbValidators.js";
 import { validateJWT } from "../middleware/validateJWT.middleware.js";
+import { validateRoles } from "../middleware/validateRoles.middleware.js";
+import { ADMIN_ROLE } from "../constant/roles.constant.js";
+import { EMAIL, ID, LIMIT, NAME, PAGE, PASSWORD, ROLE } from "../constant/paramsQueries.constant.js";
+import { IS_INVALID, IS_REQUIRED, MUST_BE_NUMERIC, MUST_HAVE_MORE } from "../constant/messages.constant.js";
 
 const userRouter = Router();
 
 userRouter.get("/", [
-    query('page', 'Page must be numeric field').optional({ checkFalsy: true }).isNumeric(),
-    query('limit', 'Limit must be numeric field').optional({ checkFalsy: true }).isNumeric(),
+    query(PAGE, MUST_BE_NUMERIC(PAGE)).optional({ checkFalsy: true }).isNumeric(),
+    query(LIMIT, MUST_BE_NUMERIC(LIMIT)).optional({ checkFalsy: true }).isNumeric(),
     validateFields
 ], userGet);
 
 userRouter.put("/:id", [
-    check('id', 'Id is invalid').isMongoId(),
-    check('id').custom(validId),
-    check('role').optional({ checkFalsy: true }).custom(validRole),
+    check(ID, IS_INVALID(ID)).isMongoId(),
+    check(ID).custom(validId),
+    check(ROLE).optional({ checkFalsy: true }).custom(validRole),
     validateFields
 ], userPut);
 
 userRouter.post("/", [
-    check('name', 'Name is required').not().isEmpty(),
-    check('password', 'Password is required').not().isEmpty(),
-    check('password', 'Password must have more than 6 characters').isLength({min: 6}),
-    check('email', 'Email is invalid').isEmail(),
-    check('email').custom(validEmail),
-    check('role', 'Role is required').not().isEmpty(),
-    check('role').custom(validRole),
+    check(NAME, IS_REQUIRED(NAME)).not().isEmpty(),
+    check(PASSWORD, IS_REQUIRED(PASSWORD)).not().isEmpty(),
+    check(PASSWORD, MUST_HAVE_MORE(PASSWORD, 6)).isLength({min: 6}),
+    check(EMAIL, IS_INVALID(EMAIL)).isEmail(),
+    check(EMAIL).custom(validEmail),
+    check(ROLE, IS_REQUIRED(ROLE)).not().isEmpty(),
+    check(ROLE).custom(validRole),
     validateFields
 ], userPost);
 
 userRouter.delete("/:id", [
     validateJWT,
-    check('id', 'Id is invalid').isMongoId(),
-    check('id').custom(validId),
+    validateRoles(ADMIN_ROLE),
+    check(ID, IS_INVALID(ID)).isMongoId(),
+    check(ID).custom(validId),
     validateFields
 ], userDelete);
 

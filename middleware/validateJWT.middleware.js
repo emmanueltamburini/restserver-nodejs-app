@@ -1,5 +1,5 @@
 import { request, response } from "express";
-import { checkJWT } from "../helpers/utils.js";
+import { checkJWT } from "../helpers/validators.js";
 import User from "../models/user.js";
 
 export const validateJWT = async (req = request, res = response, next = () => {}) => {

@@ -1,6 +1,6 @@
 import { request, response } from "express";
 import User from "../models/user.js";
-import { checkPassword, generateJWT } from "../helpers/utils.js";
+import { checkPassword, generateJWT } from "../helpers/validators.js";
 
 export const loginPost = async (req = request, res = response) => {
   const {body} = req;
