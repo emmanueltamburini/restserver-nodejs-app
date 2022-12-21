@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { loginPost } from "../controllers/auth.controller.js";
 import { check } from "express-validator";
+
+import { loginPost } from "../controllers/auth.controller.js";
 import { validateFields } from "../middleware/validateFields.middleware.js";
 import { EMAIL, PASSWORD } from "../constant/paramsQueries.constant.js";
 import { IS_REQUIRED, MUST_HAVE_RIGHT_FORMAT } from "../constant/messages.constant.js";

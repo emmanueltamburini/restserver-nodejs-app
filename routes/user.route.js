@@ -1,15 +1,16 @@
 import { Router } from "express";
+import { check, query } from "express-validator";
+
 import {
   userDelete,
   userGet,
   userPost,
   userPut,
 } from "../controllers/user.controller.js";
-import { check, query } from "express-validator";
 import { validateFields } from "../middleware/validateFields.middleware.js";
-import { validEmail, validId, validRole } from "../helpers/dbValidators.js";
 import { validateJWT } from "../middleware/validateJWT.middleware.js";
 import { validateRoles } from "../middleware/validateRoles.middleware.js";
+import { validEmail, validId, validRole } from "../helpers/dbValidators.js";
 import { ADMIN_ROLE } from "../constant/roles.constant.js";
 import { EMAIL, ID, LIMIT, NAME, PAGE, PASSWORD, ROLE } from "../constant/paramsQueries.constant.js";
 import { IS_INVALID, IS_REQUIRED, MUST_BE_NUMERIC, MUST_HAVE_MORE } from "../constant/messages.constant.js";

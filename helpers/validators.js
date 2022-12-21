@@ -1,5 +1,6 @@
 import bcryptjs from "bcryptjs";
 import jwt from 'jsonwebtoken'
+
 import { EXPIRES_JWT } from "../constant/values.constant.js";
 
 export const generatePassword = (password, jumps = 10) => {

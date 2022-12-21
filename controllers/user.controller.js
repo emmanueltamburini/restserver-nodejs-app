@@ -1,4 +1,5 @@
 import { request, response } from "express";
+
 import User from "../models/user.js";
 import { generatePassword } from "../helpers/validators.js";
 

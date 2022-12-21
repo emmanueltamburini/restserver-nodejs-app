@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+
 import { DB_CONNECTED, SOMETHING_WENT_WRONG_DB, TRYING_CONNECT_DB } from '../constant/messages.constant.js';
 
 export const dbConnection = async () => {

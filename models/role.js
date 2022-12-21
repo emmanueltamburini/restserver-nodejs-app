@@ -1,4 +1,5 @@
 import {Schema, model} from "mongoose";
+
 import { IS_REQUIRED } from "../constant/messages.constant.js";
 import { ROLE } from "../constant/paramsQueries.constant.js";
 import { capitalize } from "../helpers/utils.js";
