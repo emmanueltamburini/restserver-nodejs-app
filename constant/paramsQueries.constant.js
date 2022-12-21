@@ -5,3 +5,4 @@ export const EMAIL = 'email';
 export const ROLE = 'role';
 export const PAGE = 'page';
 export const LIMIT = 'limit';
+export const USER = 'user';

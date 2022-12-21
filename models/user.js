@@ -1,25 +1,28 @@
 import {Schema, model} from "mongoose";
+import { IS_REQUIRED } from "../constant/messages.constant.js";
+import { EMAIL, NAME, PASSWORD, ROLE, USER } from "../constant/paramsQueries.constant.js";
+import { capitalize } from "../helpers/utils.js";
 
 const userSchema = Schema({
     name: {
         type: String,
-        required: [true, 'Name is required']
+        required: [true, IS_REQUIRED(NAME)]
     },
     email: {
         type: String,
-        required: [true, 'Email is required'],
+        required: [true, IS_REQUIRED(EMAIL)],
         unique: true
     },
     password: {
         type: String,
-        required: [true, 'Password is required']
+        required: [true, IS_REQUIRED(PASSWORD)]
     },
     image: {
         type: String,
     },
     role: {
         type: String,
-        required: [true, 'Role is required'],
+        required: [true, IS_REQUIRED(ROLE)],
     },
     status: {
         type: Boolean,
@@ -37,7 +40,7 @@ userSchema.methods.toJSON = function () {
     return {...user, uid: _id};
 }
 
-const User = model('User', userSchema);
+const User = model(capitalize(USER), userSchema);
 
 export default User;
 

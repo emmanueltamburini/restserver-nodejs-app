@@ -1,9 +1,10 @@
 import mongoose from 'mongoose'
+import { DB_CONNECTED, SOMETHING_WENT_WRONG_DB, TRYING_CONNECT_DB } from '../constant/messages.constant.js';
 
 export const dbConnection = async () => {
 
     try {
-        console.log('Trying to connect to bd');
+        console.log(TRYING_CONNECT_DB);
 
         mongoose.set("strictQuery", false);
         await mongoose.connect(process.env.MONGODB_CNN, {
@@ -11,10 +12,10 @@ export const dbConnection = async () => {
             useUnifiedTopology: true
         });
 
-        console.log('Data base has connected');
+        console.log(DB_CONNECTED);
     } catch (error) {
         console.log(error);
-        throw new Error('There was a problem in data base connection')
+        throw new Error(SOMETHING_WENT_WRONG_DB)
     }
     
 }

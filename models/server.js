@@ -3,14 +3,17 @@ import cors from 'cors';
 import authRouter from '../routes/auth.route.js';
 import userRouter from '../routes/user.route.js';
 import { dbConnection } from '../db/config.js';
+import { PUBLIC_FOLDER } from '../constant/values.constant.js';
+import { SERVER_RUNNING } from '../constant/messages.constant.js';
+import { AUTH_PATH, USER_PATH } from '../constant/routes.constant.js';
 
 export default class Server {
 
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
-        this.userPath = '/api/user';
-        this.authPath = '/api/auth';
+        this.userPath = USER_PATH;
+        this.authPath = AUTH_PATH;
 
         this.database();
 
@@ -28,7 +31,7 @@ export default class Server {
 
         this.app.use(express.json());
 
-        this.app.use(express.static('public'));
+        this.app.use(express.static(PUBLIC_FOLDER));
     }
 
     routes() {
@@ -38,7 +41,7 @@ export default class Server {
 
     listen() {
         this.app.listen(this.port, () => {
-            console.log(`Server is running in port ${this.port}`);
+            console.log(SERVER_RUNNING(this.port));
         });
     }
 

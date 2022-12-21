@@ -1,5 +1,6 @@
 import bcryptjs from "bcryptjs";
 import jwt from 'jsonwebtoken'
+import { EXPIRES_JWT } from "../constant/values.constant.js";
 
 export const generatePassword = (password, jumps = 10) => {
     const salt = bcryptjs.genSaltSync(jumps);
@@ -18,14 +19,14 @@ export const generateJWT = (uid = '') => {
         const callback = (err, token) => {
             if (err) {
                 console.log(err);
-                reject('Something went wrong in generating JWT');
+                reject(SOMETHING_WENT_WRONG_JWT);
             } else {
                 resolve(token);
             }
         };
 
         jwt.sign(payload, process.env.SECRET_PRIVATE_KEY, {
-            expiresIn: '4h'
+            expiresIn: EXPIRES_JWT
         }, callback);
     });
 }

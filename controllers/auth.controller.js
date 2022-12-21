@@ -1,6 +1,7 @@
 import { request, response } from "express";
 import User from "../models/user.js";
 import { checkPassword, generateJWT } from "../helpers/validators.js";
+import { INVALID_USER, SOMETHING_WENT_WRONG } from "../constant/messages.constant.js";
 
 export const loginPost = async (req = request, res = response) => {
   const {body} = req;
@@ -11,7 +12,7 @@ export const loginPost = async (req = request, res = response) => {
 
     if (!user || !checkPassword(password, user.password)) {
         return res.json({
-            msg: 'Invalid username or password'
+            msg: INVALID_USER
         });
     }
 
@@ -24,7 +25,7 @@ export const loginPost = async (req = request, res = response) => {
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-        msg: 'Something went wrong, please contact admin'
+        msg: SOMETHING_WENT_WRONG
     });
   }
 };

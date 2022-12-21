@@ -1,19 +1,20 @@
 import { request, response } from "express";
 import { checkJWT } from "../helpers/validators.js";
 import User from "../models/user.js";
+import { TOKEN_INVALID, TOKEN_INVALID_USER_NOT_FOUND } from "../constant/messages.constant.js";
 
 export const validateJWT = async (req = request, res = response, next = () => {}) => {
     const token = req.header('x-token');
     const payload = checkJWT(token); 
 
     if (!payload) {
-        return res.status(401).json('x-token is not valid');
+        return res.status(401).json(TOKEN_INVALID);
     }
 
     const user = await User.findOne({_id: payload.uid, status: true });
 
     if (!user) {
-        return res.status(401).json('x-token is not valid - user does not exists');
+        return res.status(401).json(TOKEN_INVALID_USER_NOT_FOUND);
     }
 
     req.user = user;

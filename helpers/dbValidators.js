@@ -1,23 +1,24 @@
+import { EMAIL_TAKEN, INVALID_ROLE, USER_ID_DOES_NOT_EXIST } from "../constant/messages.constant.js";
 import Role from "../models/role.js";
 import User from "../models/user.js";
 
 export const validRole = async (role = '') => {
     const existRole = await Role.findOne({role});
     if (!existRole) {
-        throw new Error(`Role ${role} is not valid`);
+        throw new Error(INVALID_ROLE(role));
     }
 }
 
 export const validEmail = async (email = '') => {
     const existUser = await User.findOne({email});
     if (existUser) {
-        throw new Error(`Email ${email} is already taken`);
+        throw new Error(EMAIL_TAKEN(email));
     }
 }
 
 export const validId = async (id = '') => {
     const existUser = await User.findById(id);
     if (!existUser) {
-        throw new Error(`User with id ${id} does not exits`);
+        throw new Error(USER_ID_DOES_NOT_EXIST(ID));
     }
 }

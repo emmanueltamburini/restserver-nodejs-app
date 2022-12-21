@@ -71,9 +71,3 @@ export const userDelete = async (req = request, res = response) => {
     user
   });
 };
-
-export const userPatch = (req = request, res = response) => {
-  res.json({
-    msg: "patch API - controller",
-  });
-};
