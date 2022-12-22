@@ -7,9 +7,7 @@ import {
   userPost,
   userPut,
 } from "../controllers/user.controller.js";
-import { validateFields } from "../middleware/validateFields.middleware.js";
-import { validateJWT } from "../middleware/validateJWT.middleware.js";
-import { validateRoles } from "../middleware/validateRoles.middleware.js";
+import { validateFields, validateJWT, validateRoles } from "../middleware/index.js";
 import { validEmail, validId, validRole } from "../helpers/dbValidators.js";
 import { ADMIN_ROLE } from "../constant/roles.constant.js";
 import { EMAIL, ID, LIMIT, NAME, PAGE, PASSWORD, ROLE } from "../constant/paramsQueries.constant.js";

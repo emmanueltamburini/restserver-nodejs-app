@@ -2,19 +2,23 @@ import express from 'express';
 import cors from 'cors';
 
 import authRouter from '../routes/auth.route.js';
+import categoryRouter from '../routes/category.route.js';
 import userRouter from '../routes/user.route.js';
 import { dbConnection } from '../db/config.js';
 import { PUBLIC_FOLDER } from '../constant/values.constant.js';
 import { SERVER_RUNNING } from '../constant/messages.constant.js';
-import { AUTH_PATH, USER_PATH } from '../constant/routes.constant.js';
+import { AUTH_PATH, CATEGORY_PATH, USER_PATH } from '../constant/routes.constant.js';
 
 export default class Server {
 
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
-        this.userPath = USER_PATH;
-        this.authPath = AUTH_PATH;
+        this.paths = {
+            user: USER_PATH,
+            auth: AUTH_PATH,
+            category: CATEGORY_PATH,
+        }
 
         this.database();
 
@@ -36,8 +40,9 @@ export default class Server {
     }
 
     routes() {
-        this.app.use(this.authPath, authRouter);
-        this.app.use(this.userPath, userRouter);
+        this.app.use(this.paths.auth, authRouter);
+        this.app.use(this.paths.user, userRouter);
+        this.app.use(this.paths.category, categoryRouter);
     }
 
     listen() {

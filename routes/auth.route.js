@@ -2,7 +2,7 @@ import { Router } from "express";
 import { check } from "express-validator";
 
 import { googleSignInPost, loginPost } from "../controllers/auth.controller.js";
-import { validateFields } from "../middleware/validateFields.middleware.js";
+import { validateFields } from "../middleware/index.js";
 import { EMAIL, ID_TOKEN, PASSWORD } from "../constant/paramsQueries.constant.js";
 import { IS_REQUIRED, MUST_HAVE_RIGHT_FORMAT } from "../constant/messages.constant.js";
 import { GOOGLE_PATH, LOGIN_PATH } from "../constant/routes.constant.js";

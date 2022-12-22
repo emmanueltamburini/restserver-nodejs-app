@@ -1,5 +1,5 @@
 import { request, response } from "express";
-import User from "../models/user.js";
+import {User} from "../models/index.js";
 import { checkPassword, generateJWT } from "../helpers/validators.js";
 import { googleVerify } from "../helpers/googleVerify.js";
 import { INVALID_USER, SOMETHING_WENT_WRONG, GOOGLE_TOKEN_COULD_NOT_VERIFY, USER_UNAUTHORIZE } from "../constant/messages.constant.js";

@@ -14,9 +14,9 @@ const roleSchema = Schema({
 const Role = model(capitalize(ROLE), roleSchema);
 
 roleSchema.methods.toJSON = function () {
-    const {__v, _id, ...user } = this.toObject();
+    const {__v, _id, ...role } = this.toObject();
 
-    return {...user, id: _id};
+    return {...role, id: _id};
 }
 
 export default Role;

@@ -1,6 +1,5 @@
 import { EMAIL_TAKEN, INVALID_ROLE, USER_ID_DOES_NOT_EXIST } from "../constant/messages.constant.js";
-import Role from "../models/role.js";
-import User from "../models/user.js";
+import {Role, User} from "../models/index.js";
 
 export const validRole = async (role = '') => {
     const existRole = await Role.findOne({role});
