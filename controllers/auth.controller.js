@@ -1,7 +1,9 @@
 import { request, response } from "express";
 import User from "../models/user.js";
 import { checkPassword, generateJWT } from "../helpers/validators.js";
-import { INVALID_USER, SOMETHING_WENT_WRONG } from "../constant/messages.constant.js";
+import { googleVerify } from "../helpers/googleVerify.js";
+import { INVALID_USER, SOMETHING_WENT_WRONG, GOOGLE_TOKEN_COULD_NOT_VERIFY, USER_UNAUTHORIZE } from "../constant/messages.constant.js";
+import { randomPassword } from "../helpers/utils.js";
 
 export const loginPost = async (req = request, res = response) => {
   const {body} = req;
@@ -35,8 +37,40 @@ export const googleSignInPost = async (req = request, res = response) => {
     const {body} = req;
     const {id_token} = body;
 
-    return res.json({
-        id_token,
-        msg: 'ok'
-    });
+    try {
+        const {name, picture, email} = await googleVerify(id_token);
+
+        let user = await User.findOne({email});
+
+        if (!user) {
+            const data = {
+                name,
+                email,
+                password: randomPassword(),
+                image: picture,
+                google: true
+            }
+
+            user = new User(data);
+
+            await user.save();
+        }
+
+        if (!user.status) {
+            return res.status(401).json({
+                msg: USER_UNAUTHORIZE
+            });
+        }
+
+        const token = generateJWT(user.id);
+
+        return res.json({
+            token,
+            user,
+        });
+    } catch (error) {
+        return res.status(400).json({
+            msg: GOOGLE_TOKEN_COULD_NOT_VERIFY
+        });
+    }
   };

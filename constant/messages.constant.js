@@ -9,7 +9,8 @@ export const SOMETHING_WENT_WRONG_ = 'Something went wrong in generating JWT';
 export const TOKEN_INVALID = 'x-token is not valid';
 export const TOKEN_INVALID_USER_NOT_FOUND = 'x-token is not valid - user does not exists';
 export const NOT_USER_TO_VALIDATE = 'There is not user to validate role'; 
-
+export const GOOGLE_TOKEN_COULD_NOT_VERIFY = 'Token could not verify'
+export const USER_UNAUTHORIZE = 'User is unauthorize, please talk with the admin'
 
 export const SERVER_RUNNING = (port) =>  `Server is running in port ${port}`;
 export const INVALID_ROLE = (role) => `Role ${role} is not valid`;

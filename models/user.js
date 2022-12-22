@@ -3,6 +3,7 @@ import {Schema, model} from "mongoose";
 import { IS_REQUIRED } from "../constant/messages.constant.js";
 import { EMAIL, NAME, PASSWORD, ROLE, USER } from "../constant/paramsQueries.constant.js";
 import { capitalize } from "../helpers/utils.js";
+import { USER_ROLE } from "../constant/roles.constant.js";
 
 const userSchema = Schema({
     name: {
@@ -23,11 +24,12 @@ const userSchema = Schema({
     },
     role: {
         type: String,
+        default: USER_ROLE,
         required: [true, IS_REQUIRED(ROLE)],
     },
     status: {
         type: Boolean,
-        default: false
+        default: true
     },
     google: {
         type: Boolean,
