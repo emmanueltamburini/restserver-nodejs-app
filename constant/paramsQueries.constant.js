@@ -6,3 +6,4 @@ export const ROLE = 'role';
 export const PAGE = 'page';
 export const LIMIT = 'limit';
 export const USER = 'user';
+export const ID_TOKEN = 'id_token';

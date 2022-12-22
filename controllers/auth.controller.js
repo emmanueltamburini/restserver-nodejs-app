@@ -29,3 +29,14 @@ export const loginPost = async (req = request, res = response) => {
     });
   }
 };
+
+
+export const googleSignInPost = async (req = request, res = response) => {
+    const {body} = req;
+    const {id_token} = body;
+
+    return res.json({
+        id_token,
+        msg: 'ok'
+    });
+  };
