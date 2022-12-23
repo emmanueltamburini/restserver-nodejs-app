@@ -1,6 +1,7 @@
 import { request, response } from "express";
 import { Category } from "../models/index.js";
 import {
+    CATEGORY_IS_NOT_AVAILABLE,
   SOMETHING_WENT_WRONG
 } from "../constant/messages.constant.js";
 
@@ -77,9 +78,15 @@ export const categoryPut = async (req = request, res = response) => {
 
   name = name.toUpperCase();
 
-  const category = await Category.findByIdAndUpdate(
-    id, { name, user: user._id }, { new: true }
+  const category = await Category.findOneAndUpdate(
+    {_id: id, status: true}, { name, user: user._id }, { new: true }
   ).exec();
+
+  if (!category) {
+    return res.status(404).json({
+        msg: CATEGORY_IS_NOT_AVAILABLE
+    });
+  }
 
   res.json({
     category,

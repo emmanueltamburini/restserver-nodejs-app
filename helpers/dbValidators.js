@@ -1,4 +1,4 @@
-import { CATEGORY_ALREADY_EXISTS, CATEGORY_ID_DOES_NOT_EXIST, EMAIL_TAKEN, INVALID_ROLE, USER_ID_DOES_NOT_EXIST } from "../constant/messages.constant.js";
+import { CATEGORY_ALREADY_TAKEN, CATEGORY_ID_DOES_NOT_EXIST, EMAIL_TAKEN, INVALID_ROLE, USER_ID_DOES_NOT_EXIST } from "../constant/messages.constant.js";
 import {Category, Role, User} from "../models/index.js";
 
 export const validRole = async (role = '') => {
@@ -35,6 +35,6 @@ export const validCategoryName = async (name, {req, loc, path}) => {
 
     const existCategory = await Category.findOne({ name, _id: {$ne: id} }).exec();
     if (existCategory) {
-        throw new Error(CATEGORY_ALREADY_EXISTS(name));
+        throw new Error(CATEGORY_ALREADY_TAKEN(name));
     }
 }

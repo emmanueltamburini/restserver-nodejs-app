@@ -11,6 +11,7 @@ export const TOKEN_INVALID_USER_NOT_FOUND = 'x-token is not valid - user does no
 export const NOT_USER_TO_VALIDATE = 'There is not user to validate role'; 
 export const GOOGLE_TOKEN_COULD_NOT_VERIFY = 'Token could not verify'
 export const USER_UNAUTHORIZE = 'User is unauthorize, please talk with the admin'
+export const CATEGORY_IS_NOT_AVAILABLE = 'Category is not available'
 
 export const SERVER_RUNNING = (port) =>  `Server is running in port ${port}`;
 export const INVALID_ROLE = (role) => `Role ${role} is not valid`;
@@ -23,4 +24,4 @@ export const MUST_HAVE_MORE = (field = '', moreThan = 0) => `${capitalize(field)
 export const MUST_BE_NUMERIC = (field = '') => `${capitalize(field)} must be numeric field`;
 export const MUST_HAVE_RIGHT_FORMAT = (field = '') => `${capitalize(field)} must have right format`;
 export const NOT_PERMISSION_TO_THIS = (name = '') => `${name} has not permission to do this`;
-export const CATEGORY_ALREADY_EXISTS = (category = '') => `${category} category already exists`;
+export const CATEGORY_ALREADY_TAKEN = (category = '') => `${category} category name already taken`;
