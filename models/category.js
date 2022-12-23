@@ -7,7 +7,8 @@ import { capitalize } from "../helpers/utils.js";
 const categorySchema = Schema({
     name: {
         type: String,
-        required: [true, IS_REQUIRED(NAME)]
+        required: [true, IS_REQUIRED(NAME)],
+        unique: true
     },
     status: {
         type: Boolean,

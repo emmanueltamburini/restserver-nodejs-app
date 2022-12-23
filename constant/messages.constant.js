@@ -22,3 +22,4 @@ export const MUST_HAVE_MORE = (field = '', moreThan = 0) => `${capitalize(field)
 export const MUST_BE_NUMERIC = (field = '') => `${capitalize(field)} must be numeric field`;
 export const MUST_HAVE_RIGHT_FORMAT = (field = '') => `${capitalize(field)} must have right format`;
 export const NOT_PERMISSION_TO_THIS = (name = '') => `${name} has not permission to do this`;
+export const CATEGORY_ALREADY_EXISTS = (category = '') => `${category} category already exists`;
