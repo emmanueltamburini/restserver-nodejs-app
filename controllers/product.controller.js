@@ -84,8 +84,9 @@ export const productPut = async (req = request, res = response) => {
   const { body, user } = req;
   let { name, price, category, description, available } = body;
 
-  name = name.toUpperCase();
-
+  if (name) {
+    name = name.toUpperCase();
+  }
   const data = {
     name,
     user: user._id,

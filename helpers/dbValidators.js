@@ -32,7 +32,9 @@ export const validCategoryId = async (id = '') => {
 
 export const validCategoryName = async (name, {req, loc, path}) => {
     const {id} = req.params;
-    name = name.toUpperCase();
+    if (name) {
+        name = name.toUpperCase();
+    }
 
     const existCategory = await Category.findOne({ name, _id: {$ne: id} }).exec();
     if (existCategory) {
@@ -49,7 +51,9 @@ export const validProductId = async (id = '') => {
 
 export const validProductName = async (name, {req, loc, path}) => {
     const {id} = req.params;
-    name = name.toUpperCase();
+    if (name) {
+        name = name.toUpperCase();
+    }
 
     const existProduct = await Product.findOne({ name, _id: {$ne: id} }).exec();
     if (existProduct) {

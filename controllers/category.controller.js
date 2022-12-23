@@ -77,7 +77,9 @@ export const categoryPut = async (req = request, res = response) => {
   const { body, user } = req;
   let { name } = body;
 
-  name = name.toUpperCase();
+  if (name) {
+    name = name.toUpperCase();
+  }
 
   const category = await Category.findOneAndUpdate(
     {_id: id, status: true}, { name, user: user._id }, { new: true }

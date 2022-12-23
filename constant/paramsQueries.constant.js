@@ -10,6 +10,7 @@ export const STATUS = 'status';
 export const PRICE = 'price';
 export const DESCRIPTION = 'description';
 export const AVAILABLE = 'available';
+export const IMAGE = 'image';
 
 export const USER = 'user';
 export const CATEGORY = 'category';
