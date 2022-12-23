@@ -1,9 +1,10 @@
 import { request, response } from "express";
 import { Category } from "../models/index.js";
 import {
-    CATEGORY_IS_NOT_AVAILABLE,
+    ELEMENT_IS_NOT_AVAILABLE,
     SOMETHING_WENT_WRONG
 } from "../constant/messages.constant.js";
+import { CATEGORY } from "../constant/paramsQueries.constant.js";
 
 export const categoryGetAll = async (req = request, res = response) => {
   const { query } = req;
@@ -84,7 +85,7 @@ export const categoryPut = async (req = request, res = response) => {
 
   if (!category) {
     return res.status(404).json({
-        msg: CATEGORY_IS_NOT_AVAILABLE
+        msg: ELEMENT_IS_NOT_AVAILABLE(CATEGORY)
     });
   }
 

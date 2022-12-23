@@ -1,9 +1,10 @@
 import { request, response } from "express";
 import { Product } from "../models/index.js";
 import {
-    PRODUCT_IS_NOT_AVAILABLE,
+    ELEMENT_IS_NOT_AVAILABLE,
     SOMETHING_WENT_WRONG
 } from "../constant/messages.constant.js";
+import { PRODUCT } from "../constant/paramsQueries.constant.js";
 
 export const productGetAll = async (req = request, res = response) => {
   const { query } = req;
@@ -100,7 +101,7 @@ export const productPut = async (req = request, res = response) => {
 
   if (!product) {
     return res.status(404).json({
-        msg: PRODUCT_IS_NOT_AVAILABLE
+        msg: ELEMENT_IS_NOT_AVAILABLE(PRODUCT)
     });
   }
 
