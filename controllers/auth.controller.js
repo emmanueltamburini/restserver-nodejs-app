@@ -10,7 +10,7 @@ export const loginPost = async (req = request, res = response) => {
   const {email, password} = body;
 
   try {
-    const user = await User.findOne({email, status: true});
+    const user = await User.findOne({email, status: true}).exec();
 
     if (!user || !checkPassword(password, user.password)) {
         return res.json({
@@ -40,7 +40,7 @@ export const googleSignInPost = async (req = request, res = response) => {
     try {
         const {name, picture, email} = await googleVerify(id_token);
 
-        let user = await User.findOne({email});
+        let user = await User.findOne({email}).exec();
 
         if (!user) {
             const data = {

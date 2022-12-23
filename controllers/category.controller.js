@@ -1,8 +1,7 @@
 import { request, response } from "express";
 import { Category } from "../models/index.js";
 import {
-  CATEGORY_ALREADY_EXISTS,
-  SOMETHING_WENT_WRONG,
+  SOMETHING_WENT_WRONG
 } from "../constant/messages.constant.js";
 
 export const categoryGetAll = async (req = request, res = response) => {
@@ -13,11 +12,11 @@ export const categoryGetAll = async (req = request, res = response) => {
   const currentQuery = { status: true };
 
   const categoryPromise = Category.find(currentQuery)
-    .populate("user")
+    .populate('user', 'name email')
     .skip(Number(page * limit))
-    .limit(Number(limit));
+    .limit(Number(limit)).exec();
 
-  const totalPromise = Category.countDocuments(currentQuery);
+  const totalPromise = Category.countDocuments(currentQuery).exec();
 
   const [categories, total] = await Promise.all([
     categoryPromise,
@@ -34,7 +33,7 @@ export const categoryGet = async (req = request, res = response) => {
   const { id } = req.params;
 
   const category = await Category.findOne({ _id: id, status: true })
-    .populate("user");
+    .populate('user', 'name email').exec();
 
   if (!category) {
     return res.status(204).json();
@@ -73,14 +72,14 @@ export const categoryPost = async (req = request, res = response) => {
 
 export const categoryPut = async (req = request, res = response) => {
   const { id } = req.params;
-  const { body } = req;
+  const { body, user } = req;
   let { name } = body;
 
   name = name.toUpperCase();
 
   const category = await Category.findByIdAndUpdate(
-    id, { name }, { new: true }
-  );
+    id, { name, user: user._id }, { new: true }
+  ).exec();
 
   res.json({
     category,
@@ -90,7 +89,7 @@ export const categoryPut = async (req = request, res = response) => {
 export const categoryDelete = async (req = request, res = response) => {
   const { id } = req.params;
 
-  const category = await Category.findByIdAndUpdate(id, {status: false}, {new: true});
+  const category = await Category.findByIdAndUpdate(id, {status: false}, {new: true}).exec();
 
   res.json({
     category

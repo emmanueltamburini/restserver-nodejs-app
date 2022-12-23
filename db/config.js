@@ -8,6 +8,7 @@ export const dbConnection = async () => {
         console.log(TRYING_CONNECT_DB);
 
         mongoose.set("strictQuery", false);
+        mongoose.set('debug', false);
         await mongoose.connect(process.env.MONGODB_CNN, {
             useNewUrlParser: true,
             useUnifiedTopology: true

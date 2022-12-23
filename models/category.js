@@ -22,13 +22,13 @@ const categorySchema = Schema({
     },
 });
 
-const Category = model(capitalize(CATEGORY), categorySchema);
-
 categorySchema.methods.toJSON = function () {
     const {__v, _id, ...category } = this.toObject();
 
     return {...category, id: _id};
 }
+
+const Category = model(capitalize(CATEGORY), categorySchema);
 
 export default Category;
 

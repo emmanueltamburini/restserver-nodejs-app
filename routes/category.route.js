@@ -2,11 +2,12 @@ import { Router } from "express";
 
 import { BASE_PATH, ID_PATH } from "../constant/routes.constant.js";
 import { categoryDelete, categoryGet, categoryGetAll, categoryPost, categoryPut } from "../controllers/category.controller.js";
-import { validateFields, validateJWT } from "../middleware/index.js";
+import { validateFields, validateJWT, validateRoles } from "../middleware/index.js";
 import { check, query } from "express-validator";
 import { ID, LIMIT, NAME, PAGE } from "../constant/paramsQueries.constant.js";
 import { IS_INVALID, IS_REQUIRED, MUST_BE_NUMERIC } from "../constant/messages.constant.js";
 import { validCategoryId, validCategoryName } from "../helpers/dbValidators.js";
+import { ADMIN_ROLE } from "../constant/roles.constant.js";
 
 const categoryRouter = Router();
 
@@ -30,6 +31,7 @@ categoryRouter.post(BASE_PATH, [
 ], categoryPost);
 
 categoryRouter.put(ID_PATH, [
+    validateJWT,
     check(ID, IS_INVALID(ID)).isMongoId(),
     check(ID).custom(validCategoryId),
     check(NAME).custom(validCategoryName),
@@ -37,6 +39,8 @@ categoryRouter.put(ID_PATH, [
 ], categoryPut);
 
 categoryRouter.delete(ID_PATH, [
+    validateJWT,
+    validateRoles(ADMIN_ROLE),
     check(ID, IS_INVALID(ID)).isMongoId(),
     check(ID).custom(validCategoryId),
     validateFields

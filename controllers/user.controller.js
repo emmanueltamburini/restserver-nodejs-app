@@ -56,7 +56,7 @@ export const userPut = async (req = request, res = response) => {
     email,
     password,
     role
-  }, {new: true});
+  }, {new: true}).exec();
 
   res.json({
     user
@@ -66,7 +66,7 @@ export const userPut = async (req = request, res = response) => {
 export const userDelete = async (req = request, res = response) => {
   const { id } = req.params;
 
-  const user = await User.findByIdAndUpdate(id, {status: false}, {new: true});
+  const user = await User.findByIdAndUpdate(id, {status: false}, {new: true}).exec();
 
   res.json({
     user

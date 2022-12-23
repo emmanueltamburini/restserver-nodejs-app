@@ -12,7 +12,7 @@ export const validateJWT = async (req = request, res = response, next = () => {}
         return res.status(401).json(TOKEN_INVALID);
     }
 
-    const user = await User.findOne({_id: payload.uid, status: true });
+    const user = await User.findOne({_id: payload.uid, status: true }).exec();
 
     if (!user) {
         return res.status(401).json(TOKEN_INVALID_USER_NOT_FOUND);
