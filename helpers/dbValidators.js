@@ -1,5 +1,5 @@
-import { CATEGORY_ALREADY_TAKEN, CATEGORY_ID_DOES_NOT_EXIST, EMAIL_TAKEN, INVALID_ROLE, USER_ID_DOES_NOT_EXIST } from "../constant/messages.constant.js";
-import {Category, Role, User} from "../models/index.js";
+import { CATEGORY_ALREADY_TAKEN, CATEGORY_ID_DOES_NOT_EXIST, EMAIL_TAKEN, INVALID_ROLE, PRODUCT_ALREADY_TAKEN, PRODUCT_ID_DOES_NOT_EXIST, USER_ID_DOES_NOT_EXIST } from "../constant/messages.constant.js";
+import {Category, Product, Role, User} from "../models/index.js";
 
 export const validRole = async (role = '') => {
     const existRole = await Role.findOne({role}).exec();
@@ -36,5 +36,22 @@ export const validCategoryName = async (name, {req, loc, path}) => {
     const existCategory = await Category.findOne({ name, _id: {$ne: id} }).exec();
     if (existCategory) {
         throw new Error(CATEGORY_ALREADY_TAKEN(name));
+    }
+}
+
+export const validProductId = async (id = '') => {
+    const existProduct = await Product.findById(id).exec();
+    if (!existProduct) {
+        throw new Error(PRODUCT_ID_DOES_NOT_EXIST(id));
+    }
+}
+
+export const validProductName = async (name, {req, loc, path}) => {
+    const {id} = req.params;
+    name = name.toUpperCase();
+
+    const existProduct = await Product.findOne({ name, _id: {$ne: id} }).exec();
+    if (existProduct) {
+        throw new Error(PRODUCT_ALREADY_TAKEN(name));
     }
 }

@@ -7,6 +7,10 @@ export const PAGE = 'page';
 export const LIMIT = 'limit';
 export const ID_TOKEN = 'id_token';
 export const STATUS = 'status';
+export const PRICE = 'price';
+export const DESCRIPTION = 'description';
+export const AVAILABLE = 'available';
 
 export const USER = 'user';
 export const CATEGORY = 'category';
+export const PRODUCT = 'product';

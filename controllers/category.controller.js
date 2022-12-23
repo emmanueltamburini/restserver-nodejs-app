@@ -2,7 +2,7 @@ import { request, response } from "express";
 import { Category } from "../models/index.js";
 import {
     CATEGORY_IS_NOT_AVAILABLE,
-  SOMETHING_WENT_WRONG
+    SOMETHING_WENT_WRONG
 } from "../constant/messages.constant.js";
 
 export const categoryGetAll = async (req = request, res = response) => {
