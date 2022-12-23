@@ -2,6 +2,8 @@ import bcryptjs from "bcryptjs";
 import jwt from 'jsonwebtoken'
 
 import { EXPIRES_JWT } from "../constant/values.constant.js";
+import { AVAILABLE_COLLECTION } from "../constant/paramsQueries.constant.js";
+import { INVALID_COLLECTION } from "../constant/messages.constant.js";
 
 export const generatePassword = (password, jumps = 10) => {
     const salt = bcryptjs.genSaltSync(jumps);
@@ -38,5 +40,11 @@ export const checkJWT = (token = '') => {
     } catch (error) {
         console.log(error);
         return null;
+    }
+}
+
+export const validCollectionParam = async (collection = '') => {
+    if (!AVAILABLE_COLLECTION.includes(collection)) {
+        throw new Error(INVALID_COLLECTION(AVAILABLE_COLLECTION));
     }
 }

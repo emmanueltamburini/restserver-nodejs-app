@@ -11,6 +11,7 @@ export const TOKEN_INVALID_USER_NOT_FOUND = 'x-token is not valid - user does no
 export const NOT_USER_TO_VALIDATE = 'There is not user to validate role'; 
 export const GOOGLE_TOKEN_COULD_NOT_VERIFY = 'Token could not verify';
 export const USER_UNAUTHORIZE = 'User is unauthorize, please talk with the admin';
+export const FUNCTIONALITY_NOT_IMPLEMENTED_YET = "Functionality does not implemented yet";
 
 export const ELEMENT_IS_NOT_AVAILABLE = (element) => `${capitalize(element)} is not available`;;
 export const SERVER_RUNNING = (port) =>  `Server is running in port ${port}`;
@@ -25,3 +26,4 @@ export const MUST_HAVE_RIGHT_FORMAT = (field = '') => `${capitalize(field)} must
 export const NOT_PERMISSION_TO_THIS = (name = '') => `${name} has not permission to do this`;
 export const ELEMENT_ID_DOES_NOT_EXIST= (id, element) => `${capitalize(element)} with id ${id} does not exist`;
 export const ELEMENT_TAKEN = (name, element) => `${capitalize(element)} ${name} is already taken`;
+export const INVALID_COLLECTION = (collections = []) => `Invalid collection. Try with a right collection like: ${collections.join(', ')}`;
