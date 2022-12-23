@@ -16,6 +16,7 @@ export const SERVER_RUNNING = (port) =>  `Server is running in port ${port}`;
 export const INVALID_ROLE = (role) => `Role ${role} is not valid`;
 export const EMAIL_TAKEN = (email) => `Email ${email} is already taken`;
 export const USER_ID_DOES_NOT_EXIST = (id) => `User with id ${id} does not exist`;
+export const CATEGORY_ID_DOES_NOT_EXIST = (id) => `Category with id ${id} does not exist`;
 export const IS_REQUIRED = (field = '') => `${capitalize(field)} is required`;
 export const IS_INVALID = (field = '') => `${capitalize(field)} is invalid`;
 export const MUST_HAVE_MORE = (field = '', moreThan = 0) => `${capitalize(field)} must have more than ${moreThan} characters`;

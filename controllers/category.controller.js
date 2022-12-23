@@ -3,9 +3,24 @@ import { Category } from "../models/index.js";
 import { CATEGORY_ALREADY_EXISTS, SOMETHING_WENT_WRONG } from "../constant/messages.constant.js";
 
 export const categoryGetAll = async (req = request, res = response) => {
+  const { query } = req;
+
+  const { page = 0, limit = 5 } = query;
+
+  const currentQuery = {status: true};
+
+  const categoryPromise = Category.find(currentQuery)
+    .populate('user')
+    .skip(Number(page*limit))
+    .limit(Number(limit)); 
+
+  const totalPromise = Category.countDocuments(currentQuery);
+
+  const [categories, total] = await Promise.all([categoryPromise, totalPromise]);
 
   res.json({
-    msg: 'get all'
+    categories,
+    total
   });
 };
 
