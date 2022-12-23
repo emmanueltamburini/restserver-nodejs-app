@@ -6,7 +6,7 @@ import { validateFields, validateJWT } from "../middleware/index.js";
 import { check, query } from "express-validator";
 import { ID, LIMIT, NAME, PAGE } from "../constant/paramsQueries.constant.js";
 import { IS_INVALID, IS_REQUIRED, MUST_BE_NUMERIC } from "../constant/messages.constant.js";
-import { validCategoryId } from "../helpers/dbValidators.js";
+import { validCategoryId, validCategoryName } from "../helpers/dbValidators.js";
 
 const categoryRouter = Router();
 
@@ -25,12 +25,14 @@ categoryRouter.get(ID_PATH, [
 categoryRouter.post(BASE_PATH, [
     validateJWT,
     check(NAME, IS_REQUIRED(NAME)).not().isEmpty(),
+    check(NAME).custom(validCategoryName),
     validateFields
 ], categoryPost);
 
 categoryRouter.put(ID_PATH, [
     check(ID, IS_INVALID(ID)).isMongoId(),
     check(ID).custom(validCategoryId),
+    check(NAME).custom(validCategoryName),
     validateFields
 ], categoryPut);
 
