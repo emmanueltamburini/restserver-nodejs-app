@@ -25,10 +25,17 @@ export const categoryGetAll = async (req = request, res = response) => {
 };
 
 export const categoryGet = async (req = request, res = response) => {
+    const { id } = req.params;
 
-  res.json({
-    msg: 'get'
-  });
+    const category = await Category.findOne({_id: id, status: true}).populate('user');
+
+    if (!category) {
+        return res.status(204).json();
+    }
+
+    res.json({
+        category
+    });
 };
 
 export const categoryPost = async (req = request, res = response) => {
