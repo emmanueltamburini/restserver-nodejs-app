@@ -30,7 +30,8 @@ const productSchema = Schema({
         required: [true, IS_REQUIRED(CATEGORY)]
     },
     description: { type: String },
-    available: { type: Boolean, default: true }
+    available: { type: Boolean, default: true },
+    image: {type: String},
 });
 
 productSchema.methods.toJSON = function () {

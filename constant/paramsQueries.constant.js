@@ -33,6 +33,11 @@ export const AVAILABLE_COLLECTION = [
     PRODUCT,
 ];
 
+export const AVAILABLE_COLLECTION_TO_UPDATE_IMAGE = [
+    USER,
+    PRODUCT,
+];
+
 export const VALIDATE_EXT = [
     PNG,
     JPG,
