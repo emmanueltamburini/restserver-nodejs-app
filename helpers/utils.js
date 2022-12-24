@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export const capitalize = (value = '') => {
     return value.replace(/^\w/, (c) => c.toUpperCase());    
 }
@@ -19,3 +21,5 @@ export const generateRandomString = (length) => {
 }
 
 export const randomPassword = () => generateRandomString(getRandomInt(10, 15));
+
+export const generateNameFile = (ext = 'txt') => `${uuidv4()}.${ext}`

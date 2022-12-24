@@ -38,5 +38,6 @@ export const validateExt = (extensions = []) => (req = request, res = response, 
         return;   
     }
 
+    req.extFile = ext;
     next();
 }
