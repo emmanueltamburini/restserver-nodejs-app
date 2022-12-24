@@ -1,6 +1,7 @@
 export const LOCAL_PREVIOUS_PATH = '../';
 export const LOCAL_UPLOAD_PATH = 'uploads';
 export const LOCAL_PUBLIC_FOLDER_PATH = 'public';
+export const LOCAL_ASSETS_FOLDER_PATH = 'assets';
 
 export const API_BASE_PATH = '/api';
 export const USER_PATH = `${API_BASE_PATH}/user`;
