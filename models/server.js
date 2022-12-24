@@ -7,10 +7,12 @@ import userRouter from '../routes/user.route.js';
 import { dbConnection } from '../db/config.js';
 import { PUBLIC_FOLDER } from '../constant/values.constant.js';
 import { SERVER_RUNNING } from '../constant/messages.constant.js';
-import { AUTH_PATH, CATEGORY_PATH, EXAMPLE_PATH, PRODUCT_PATH, SEARCH_PATH, USER_PATH } from '../constant/routes.constant.js';
+import { AUTH_PATH, CATEGORY_PATH, EXAMPLE_PATH, PRODUCT_PATH, SEARCH_PATH, UPLOAD_PATH, USER_PATH } from '../constant/routes.constant.js';
 import productRouter from '../routes/product.route.js';
 import exampleRouter from '../routes/example.route.js';
 import searchRouter from '../routes/search.route.js';
+import uploadRouter from '../routes/upload.route.js';
+import fileUpload from 'express-fileupload';
 
 export default class Server {
 
@@ -23,6 +25,7 @@ export default class Server {
             category: CATEGORY_PATH,
             product: PRODUCT_PATH,
             search: SEARCH_PATH,
+            upload: UPLOAD_PATH,
             example: EXAMPLE_PATH,
         }
 
@@ -43,6 +46,11 @@ export default class Server {
         this.app.use(express.json());
 
         this.app.use(express.static(PUBLIC_FOLDER));
+
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/'
+        }));
     }
 
     routes() {
@@ -51,6 +59,7 @@ export default class Server {
         this.app.use(this.paths.category, categoryRouter);
         this.app.use(this.paths.product, productRouter);
         this.app.use(this.paths.search, searchRouter);
+        this.app.use(this.paths.upload, uploadRouter);
         this.app.use(this.paths.example, exampleRouter);
     }
 
