@@ -5,9 +5,8 @@ import authRouter from '../routes/auth.route.js';
 import categoryRouter from '../routes/category.route.js';
 import userRouter from '../routes/user.route.js';
 import { dbConnection } from '../db/config.js';
-import { PUBLIC_FOLDER } from '../constant/values.constant.js';
 import { SERVER_RUNNING } from '../constant/messages.constant.js';
-import { AUTH_PATH, CATEGORY_PATH, EXAMPLE_PATH, PRODUCT_PATH, SEARCH_PATH, UPLOAD_PATH, USER_PATH } from '../constant/routes.constant.js';
+import { AUTH_PATH, CATEGORY_PATH, EXAMPLE_PATH, LOCAL_PUBLIC_FOLDER_PATH, PRODUCT_PATH, SEARCH_PATH, UPLOAD_PATH, USER_PATH } from '../constant/routes.constant.js';
 import productRouter from '../routes/product.route.js';
 import exampleRouter from '../routes/example.route.js';
 import searchRouter from '../routes/search.route.js';
@@ -45,7 +44,7 @@ export default class Server {
 
         this.app.use(express.json());
 
-        this.app.use(express.static(PUBLIC_FOLDER));
+        this.app.use(express.static(LOCAL_PUBLIC_FOLDER_PATH));
 
         this.app.use(fileUpload({
             createParentPath: true,
