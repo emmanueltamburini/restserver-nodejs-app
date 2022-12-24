@@ -1,4 +1,4 @@
-import { capitalize } from "../helpers/utils.js";
+import { capitalize } from '../helpers/utils.js';
 
 export const INVALID_USER = 'Invalid username or password';
 export const SOMETHING_WENT_WRONG = 'Something went wrong, please contact admin';
@@ -11,7 +11,8 @@ export const TOKEN_INVALID_USER_NOT_FOUND = 'x-token is not valid - user does no
 export const NOT_USER_TO_VALIDATE = 'There is not user to validate role'; 
 export const GOOGLE_TOKEN_COULD_NOT_VERIFY = 'Token could not verify';
 export const USER_UNAUTHORIZE = 'User is unauthorize, please talk with the admin';
-export const FUNCTIONALITY_NOT_IMPLEMENTED_YET = "Functionality does not implemented yet";
+export const FUNCTIONALITY_NOT_IMPLEMENTED_YET = 'Functionality does not implemented yet';
+export const NOT_FILES = 'No files were uploaded.';
 
 export const ELEMENT_IS_NOT_AVAILABLE = (element) => `${capitalize(element)} is not available`;;
 export const SERVER_RUNNING = (port) =>  `Server is running in port ${port}`;
@@ -27,3 +28,4 @@ export const NOT_PERMISSION_TO_THIS = (name = '') => `${name} has not permission
 export const ELEMENT_ID_DOES_NOT_EXIST= (id, element) => `${capitalize(element)} with id ${id} does not exist`;
 export const ELEMENT_TAKEN = (name, element) => `${capitalize(element)} ${name} is already taken`;
 export const INVALID_COLLECTION = (collections = []) => `Invalid collection. Try with a right collection like: ${collections.join(', ')}`;
+export const ELEMENT_NOT_FOUND = (name, element) => `${capitalize(element)} '${name}' is not found`;

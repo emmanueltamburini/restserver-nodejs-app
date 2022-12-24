@@ -12,6 +12,9 @@ export const AVAILABLE = 'available';
 export const IMAGE = 'image';
 export const COLLECTION = 'collection';
 export const TERM = 'term';
+export const FILE = 'file';
+export const FILE_NAME = 'file';
+
 
 export const USER = 'user';
 export const ROLE = 'role';
