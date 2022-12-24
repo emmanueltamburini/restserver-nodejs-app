@@ -29,3 +29,4 @@ export const ELEMENT_ID_DOES_NOT_EXIST= (id, element) => `${capitalize(element)}
 export const ELEMENT_TAKEN = (name, element) => `${capitalize(element)} ${name} is already taken`;
 export const INVALID_COLLECTION = (collections = []) => `Invalid collection. Try with a right collection like: ${collections.join(', ')}`;
 export const ELEMENT_NOT_FOUND = (name, element) => `${capitalize(element)} '${name}' is not found`;
+export const INVALID_EXT = (name, extensions=[]) => `${capitalize(name)} is not a valid extension, Try with a right extension like: ${extensions.join(', ')}`;

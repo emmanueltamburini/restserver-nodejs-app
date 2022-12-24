@@ -21,9 +21,21 @@ export const ROLE = 'role';
 export const CATEGORY = 'category';
 export const PRODUCT = 'product';
 
+export const PNG = 'png';
+export const JPG = 'jpg';
+export const JPEG = 'jpeg';
+export const GIF = 'gif';
+
 export const AVAILABLE_COLLECTION = [
     USER,
     ROLE,
     CATEGORY,
     PRODUCT,
+];
+
+export const VALIDATE_EXT = [
+    PNG,
+    JPG,
+    JPEG,
+    GIF,
 ];
