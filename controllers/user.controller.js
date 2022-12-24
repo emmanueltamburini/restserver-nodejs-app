@@ -1,7 +1,7 @@
 import { request, response } from "express";
 
 import {User} from "../models/index.js";
-import { generatePassword } from "../helpers/validators.js";
+import { generatePassword } from "../helpers/utils.js";
 
 export const userGet = async (req = request, res = response) => {
   const { query } = req;

@@ -1,5 +1,5 @@
 import { request, response } from "express";
-import { checkJWT } from "../helpers/validators.js";
+import { checkJWT } from "../helpers/utils.js";
 
 import {User} from "../models/index.js";
 import { TOKEN_INVALID, TOKEN_INVALID_USER_NOT_FOUND } from "../constant/messages.constant.js";
