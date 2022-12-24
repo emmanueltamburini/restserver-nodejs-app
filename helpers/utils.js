@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import bcryptjs from "bcryptjs";
 import jwt from 'jsonwebtoken'
 
@@ -64,4 +63,3 @@ export const generateRandomString = (length) => {
 
 export const randomPassword = () => generateRandomString(getRandomInt(10, 15));
 
-export const generateNameFile = (ext = 'txt') => `${uuidv4()}.${ext}`

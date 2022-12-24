@@ -1,21 +1,15 @@
 import { request, response } from "express";
-import path from 'path'
-import * as url from 'url';
-import { generateNameFile } from "../helpers/utils.js";
-
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+import { uploadFile } from "../helpers/fileUtils.js";
 
 export const uploadPost = async (req = request, res = response) => {  
     const { file } = req.files;
 
-    const uploadPath = path.join(__dirname, '../uploads/', generateNameFile(req.extFile))
-  
-    file.mv(uploadPath, function(err) {
-      if (err) {
-        console.log(err);
-        return res.status(500).send({err});
-      }
-  
-      res.send({msg: 'File uploaded to ' + uploadPath});
-    });
+    let nameFile;
+    try {
+        nameFile = await uploadFile(file);
+    } catch (error) {
+        return res.status(500).send({error});
+    }
+
+    res.send({msg: 'File uploaded as ' + nameFile});
 };  
