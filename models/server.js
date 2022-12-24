@@ -48,6 +48,7 @@ export default class Server {
         this.app.use(express.static(PUBLIC_FOLDER));
 
         this.app.use(fileUpload({
+            createParentPath: true,
             useTempFiles : true,
             tempFileDir : '/tmp/'
         }));

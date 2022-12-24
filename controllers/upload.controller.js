@@ -8,7 +8,7 @@ export const uploadPost = async (req = request, res = response) => {
     try {
         nameFile = await uploadFile(file);
     } catch (error) {
-        return res.status(500).send({error});
+        return res.status(400).send({error});
     }
 
     res.send({msg: 'File uploaded as ' + nameFile});
