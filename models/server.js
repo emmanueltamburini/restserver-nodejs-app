@@ -12,6 +12,7 @@ import exampleRouter from '../routes/example.route.js';
 import searchRouter from '../routes/search.route.js';
 import uploadRouter from '../routes/upload.route.js';
 import fileUpload from 'express-fileupload';
+import { setCredentials } from '../middleware/setCloudinaryCredentials.middleware.js';
 
 export default class Server {
 
@@ -27,6 +28,8 @@ export default class Server {
             upload: UPLOAD_PATH,
             example: EXAMPLE_PATH,
         }
+
+        setCredentials();
 
         this.database();
 

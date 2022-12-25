@@ -44,7 +44,11 @@ const getUserImage = async (id = '', res = response) => {
         return res.status(400).json({msg: ELEMENT_ID_DOES_NOT_EXIST(id, USER)});
     }
 
-    return res.sendFile(getFile(user.image, USER));
+    try {
+        return res.sendFile(getFile(user.image, USER));
+    } catch (error) {
+        return res.redirect(getFile(user.image, USER));
+    }
 }
 
 const getProductImage = async (id = '', res = response) => {
