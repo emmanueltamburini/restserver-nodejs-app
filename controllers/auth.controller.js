@@ -61,7 +61,7 @@ export const googleSignInPost = async (req = request, res = response) => {
             });
         }
 
-        const token = generateJWT(user.id);
+        const token = await generateJWT(user.id);
 
         return res.json({
             token,
