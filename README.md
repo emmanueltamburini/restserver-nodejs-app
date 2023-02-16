@@ -4,7 +4,7 @@
 
 This application is an example on nodejs, its functionality is to simulate a rest API on user, products and categories. It also has all the functionality of regular login authentication and google login, as well as file upload and flexible search api. You can see the api examples below
 
-You can check final result [here](https://websocket-nodejs-app-production.up.railway.app/) (if you have a problem with url please notice to emmanueltamburini@gmail.com)
+You can check final result [here](https://restserver-nodejs-app-production.up.railway.app/) (if you have a problem with url please notice to emmanueltamburini@gmail.com)
 
 ## Getting started
 
