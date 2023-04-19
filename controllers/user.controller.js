@@ -1,7 +1,7 @@
 import { request, response } from "express";
 
 import {User} from "../models/index.js";
-import { generatePassword } from "../helpers/utils.js";
+import { generatePassword, generateJWT } from "../helpers/utils.js";
 
 export const userGet = async (req = request, res = response) => {
   const { query } = req;
@@ -35,8 +35,11 @@ export const userPost = async (req = request, res = response) => {
 
   await user.save();
 
+  const token = await generateJWT(user.id);
+
   res.status(201).json({
-    user
+    user,
+    token
   });
 };
 

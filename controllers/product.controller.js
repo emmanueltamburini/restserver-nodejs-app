@@ -67,10 +67,9 @@ export const productPost = async (req = request, res = response) => {
 
   try {
     await product.save();
-
-    res.status(201).json({
-      product,
-    });
+    await Product.populate(product, { path: 'user', select: 'name' });
+    const newProduct = await Product.populate(product, { path: 'category', select: 'name' });
+    res.status(201).json(newProduct);
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -106,9 +105,10 @@ export const productPut = async (req = request, res = response) => {
     });
   }
 
-  res.json({
-    product,
-  });
+  await Product.populate(product, { path: 'user', select: 'name' });
+  const newProduct = await Product.populate(product, { path: 'category', select: 'name' });
+
+  res.json(newProduct);
 };
 
 export const productDelete = async (req = request, res = response) => {
