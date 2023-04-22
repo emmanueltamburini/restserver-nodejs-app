@@ -12,7 +12,7 @@ export const loginPost = async (req = request, res = response) => {
     const user = await User.findOne({email, status: true}).exec();
 
     if (!user || !checkPassword(password, user.password)) {
-        return res.json({
+        return res.status(400).json({
             msg: INVALID_USER
         });
     }
