@@ -1,75 +1,94 @@
 import { request, response } from "express";
-import {User} from "../models/index.js";
-import { checkPassword, generateJWT, randomPassword } from "../helpers/utils.js";
+import { User } from "../models/index.js";
+import {
+  checkPassword,
+  generateJWT,
+  randomPassword,
+} from "../helpers/utils.js";
 import { googleVerify } from "../helpers/googleVerify.js";
-import { INVALID_USER, SOMETHING_WENT_WRONG, GOOGLE_TOKEN_COULD_NOT_VERIFY, USER_UNAUTHORIZE } from "../constant/messages.constant.js";
+import {
+  INVALID_USER,
+  SOMETHING_WENT_WRONG,
+  GOOGLE_TOKEN_COULD_NOT_VERIFY,
+  USER_UNAUTHORIZE,
+} from "../constant/messages.constant.js";
 
 export const loginPost = async (req = request, res = response) => {
-  const {body} = req;
-  const {email, password} = body;
+  const { body } = req;
+  const { email, password } = body;
 
   try {
-    const user = await User.findOne({email, status: true}).exec();
+    const user = await User.findOne({ email, status: true }).exec();
 
     if (!user || !checkPassword(password, user.password)) {
-        return res.status(400).json({
-            msg: INVALID_USER
-        });
+      return res.status(400).json({
+        msg: INVALID_USER,
+      });
     }
 
     const token = await generateJWT(user.id);
 
     return res.json({
-        user,
-        token
+      user,
+      token,
     });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-        msg: SOMETHING_WENT_WRONG
+      msg: SOMETHING_WENT_WRONG,
     });
   }
 };
 
-
 export const googleSignInPost = async (req = request, res = response) => {
-    const {body} = req;
-    const {id_token} = body;
+  const { body } = req;
+  const { id_token } = body;
 
-    try {
-        const {name, picture, email} = await googleVerify(id_token);
+  try {
+    const { name, picture, email } = await googleVerify(id_token);
 
-        let user = await User.findOne({email}).exec();
+    let user = await User.findOne({ email }).exec();
 
-        if (!user) {
-            const data = {
-                name,
-                email,
-                password: randomPassword(),
-                image: picture,
-                google: true
-            }
+    if (!user) {
+      const data = {
+        name,
+        email,
+        password: randomPassword(),
+        image: picture,
+        google: true,
+      };
 
-            user = new User(data);
+      user = new User(data);
 
-            await user.save();
-        }
-
-        if (!user.status) {
-            return res.status(401).json({
-                msg: USER_UNAUTHORIZE
-            });
-        }
-
-        const token = await generateJWT(user.id);
-
-        return res.json({
-            token,
-            user,
-        });
-    } catch (error) {
-        return res.status(400).json({
-            msg: GOOGLE_TOKEN_COULD_NOT_VERIFY
-        });
+      await user.save();
     }
-  };
+
+    if (!user.status) {
+      return res.status(401).json({
+        msg: USER_UNAUTHORIZE,
+      });
+    }
+
+    const token = await generateJWT(user.id);
+
+    return res.json({
+      token,
+      user,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      msg: GOOGLE_TOKEN_COULD_NOT_VERIFY,
+    });
+  }
+};
+
+export const renewGet = async (req = request, res = response) => {
+  const { user } = req;
+
+  const token = await generateJWT(user.id);
+
+  return res.json({
+    user,
+    token,
+  });
+};
