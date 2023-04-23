@@ -29,8 +29,7 @@ userRouter.post(BASE_PATH, [
     check(PASSWORD, MUST_HAVE_MORE(PASSWORD, 6)).isLength({min: 6}),
     check(EMAIL, IS_INVALID(EMAIL)).isEmail(),
     check(EMAIL).custom(validEmail),
-    check(ROLE, IS_REQUIRED(ROLE)).not().isEmpty(),
-    check(ROLE).custom(validRole),
+    check(ROLE).optional({ checkFalsy: true }).custom(validRole),
     check(IMAGE, MUST_BE_NUMERIC(IMAGE)).optional({ checkFalsy: true }).isString(),
     validateFields
 ], userPost);
